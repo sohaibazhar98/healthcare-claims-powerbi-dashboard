@@ -1,0 +1,7 @@
+PlanID,PlanName,PlanType,Deductible,OOPMax,Coinsurance
+PL01,Harborline HMO Standard,HMO,0,4000,0.1
+PL02,Harborline HMO Plus,HMO,0,3000,0.05
+PL03,Harborline PPO Choice,PPO,750,5000,0.2
+PL04,Harborline PPO Premier,PPO,250,3500,0.1
+PL05,Harborline EPO Select,EPO,500,4500,0.15
+PL06,Harborline HDHP + HSA,HDHP,3200,7000,0.1

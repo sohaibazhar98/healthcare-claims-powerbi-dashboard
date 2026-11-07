@@ -1,0 +1,47 @@
+relationship a2185dbc-d25a-5ae0-8c0d-11be38b96c6b
+	fromColumn: Claims.'Member ID'
+	toColumn: Members.'Member ID'
+
+relationship aa98dff9-26cb-5ef0-a49b-a8c3389645bf
+	fromColumn: Claims.'Group ID'
+	toColumn: Groups.'Group ID'
+
+relationship 946aa820-810f-535f-9169-c06f89751e20
+	fromColumn: Claims.'Plan ID'
+	toColumn: Plans.'Plan ID'
+
+relationship 8094043d-7723-50d1-b898-a0b087ac967f
+	fromColumn: Claims.'Provider ID'
+	toColumn: Providers.'Provider ID'
+
+relationship 55d0433f-7704-5cac-9fc5-c703853371c9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Claims.'Service Date'
+	toColumn: 'Date'.'Date'
+
+relationship c778242b-f800-52f8-a7f9-cdfa8bbea303
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Claims.'Paid Date'
+	toColumn: 'Date'.'Date'
+
+relationship f843d924-9958-5165-9163-accbb757f0d2
+	fromColumn: Enrollment.'Group ID'
+	toColumn: Groups.'Group ID'
+
+relationship 5cdfadb2-1e2b-5a4c-a7be-09383901591d
+	fromColumn: Enrollment.'Plan ID'
+	toColumn: Plans.'Plan ID'
+
+relationship 0a19a5f3-0050-5b11-8d56-6649d7d4db54
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Enrollment.'Month Start'
+	toColumn: 'Date'.'Date'
+
+relationship 8e4f0785-5131-5c5b-b003-5b06544fe9a0
+	fromColumn: Enrollment.'Age Band'
+	toColumn: 'Age Bands'.'Age Band'
+
+relationship 66ed7abc-5fd5-5a52-838c-15ab3a0d63bc
+	fromColumn: Members.'Age Band'
+	toColumn: 'Age Bands'.'Age Band'

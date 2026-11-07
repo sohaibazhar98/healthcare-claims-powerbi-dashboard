@@ -1,0 +1,197 @@
+/// Fact table: one row per adjudicated medical or pharmacy claim (fictional data).
+table Claims
+	lineageTag: b5fcad81-fc38-5bc7-8c85-0796b984e60a
+
+	column 'Claim ID'
+		dataType: string
+		lineageTag: a191d813-4619-5feb-8016-58aa9aec77d6
+		summarizeBy: none
+		sourceColumn: Claim ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Member ID'
+		dataType: string
+		isHidden
+		lineageTag: dfe46d2f-890c-56e5-a5f4-44bda49b3fec
+		summarizeBy: none
+		sourceColumn: Member ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group ID'
+		dataType: string
+		isHidden
+		lineageTag: 46c0477f-465c-59ba-9804-ee79b1f2f516
+		summarizeBy: none
+		sourceColumn: Group ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Plan ID'
+		dataType: string
+		isHidden
+		lineageTag: 2a3fc779-060a-5f60-98e7-7deb6fe2b8ab
+		summarizeBy: none
+		sourceColumn: Plan ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Provider ID'
+		dataType: string
+		isHidden
+		lineageTag: fa40a5d1-c6bb-540c-8b98-78a1998293b1
+		summarizeBy: none
+		sourceColumn: Provider ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Service Date'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: b8d9b016-24fe-55a4-99b9-ff17a2f0e789
+		summarizeBy: none
+		sourceColumn: Service Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Paid Date'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: 34d3893c-d496-5e04-81f1-5a9a9e96a24e
+		summarizeBy: none
+		sourceColumn: Paid Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Claim Type'
+		dataType: string
+		lineageTag: 9987f04c-e5b9-52de-b090-aaa651301a52
+		summarizeBy: none
+		sourceColumn: Claim Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Diagnosis Category'
+		dataType: string
+		lineageTag: 87035c1d-d0f9-5b3a-9b3f-4b772eaa1a4d
+		summarizeBy: none
+		sourceColumn: Diagnosis Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Claim Status'
+		dataType: string
+		lineageTag: 8189b01e-8b89-5e06-9bb3-4522a3db15a8
+		summarizeBy: none
+		sourceColumn: Claim Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Denial Reason'
+		dataType: string
+		lineageTag: e0d83741-ad9c-520a-9680-bdb5ab5eebd4
+		summarizeBy: none
+		sourceColumn: Denial Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billed Amount'
+		dataType: decimal
+		isHidden
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 66df1f9b-5f48-5556-ad0c-4ae38c658e59
+		summarizeBy: sum
+		sourceColumn: Billed Amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Allowed Amount'
+		dataType: decimal
+		isHidden
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: fdcc6370-e775-5ec8-afd6-a1e2bbf7d624
+		summarizeBy: sum
+		sourceColumn: Allowed Amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Member Cost Share'
+		dataType: decimal
+		isHidden
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 0e0fde16-3534-5aeb-8a7b-744c9502f4bb
+		summarizeBy: sum
+		sourceColumn: Member Cost Share
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Paid Amount'
+		dataType: decimal
+		isHidden
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 98d53eb3-ac52-5427-a601-8a7f759d3bf9
+		summarizeBy: sum
+		sourceColumn: Paid Amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Days to Pay'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 17a9bc51-58f0-598f-a47f-3ffb6e4dcbc4
+		summarizeBy: none
+		sourceColumn: Days to Pay
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Claims = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        File.Contents(DataFolder & "claims.csv"),
+				        [Delimiter = ",", Columns = 15, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    BlanksToNull = Table.ReplaceValue(PromotedHeaders, "", null, Replacer.ReplaceValue, {"PaidDate", "DenialReason"}),
+				    ChangedType = Table.TransformColumnTypes(
+				        BlanksToNull,
+				        {
+				            {"ClaimID", type text}, {"MemberID", type text}, {"GroupID", type text},
+				            {"PlanID", type text}, {"ProviderID", type text},
+				            {"ServiceDate", type date}, {"PaidDate", type date},
+				            {"ClaimType", type text}, {"DiagnosisCategory", type text},
+				            {"ClaimStatus", type text}, {"DenialReason", type text},
+				            {"BilledAmount", Currency.Type}, {"AllowedAmount", Currency.Type},
+				            {"MemberCostShare", Currency.Type}, {"PaidAmount", Currency.Type}
+				        },
+				        "en-US"
+				    ),
+				    AddedDaysToPay = Table.AddColumn(
+				        ChangedType, "DaysToPay",
+				        each if [PaidDate] = null then null else Duration.Days([PaidDate] - [ServiceDate]),
+				        Int64.Type
+				    ),
+				    Renamed = Table.RenameColumns(
+				        AddedDaysToPay,
+				        {
+				            {"ClaimID", "Claim ID"}, {"MemberID", "Member ID"}, {"GroupID", "Group ID"},
+				            {"PlanID", "Plan ID"}, {"ProviderID", "Provider ID"},
+				            {"ServiceDate", "Service Date"}, {"PaidDate", "Paid Date"},
+				            {"ClaimType", "Claim Type"}, {"DiagnosisCategory", "Diagnosis Category"},
+				            {"ClaimStatus", "Claim Status"}, {"DenialReason", "Denial Reason"},
+				            {"BilledAmount", "Billed Amount"}, {"AllowedAmount", "Allowed Amount"},
+				            {"MemberCostShare", "Member Cost Share"}, {"PaidAmount", "Paid Amount"},
+				            {"DaysToPay", "Days to Pay"}
+				        }
+				    )
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

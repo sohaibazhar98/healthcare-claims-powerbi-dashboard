@@ -1,0 +1,22 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DataFolder","Claims","Enrollment","Groups","Plans","Providers","Members","Age Bands","Date","Key Measures"]
+
+ref table Claims
+ref table Enrollment
+ref table Groups
+ref table Plans
+ref table Providers
+ref table Members
+ref table 'Age Bands'
+ref table 'Date'
+ref table 'Key Measures'

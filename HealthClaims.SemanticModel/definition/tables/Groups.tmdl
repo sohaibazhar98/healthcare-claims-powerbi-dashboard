@@ -1,0 +1,147 @@
+/// Employer groups (fully insured large group book). All names are fictional.
+table Groups
+	lineageTag: 1348864b-fd05-59f1-aa16-2b46ab511bac
+
+	column 'Group ID'
+		dataType: string
+		isKey
+		lineageTag: 25fe43a6-bfb6-56ae-8be7-fe7ee2126560
+		summarizeBy: none
+		sourceColumn: Group ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group Name'
+		dataType: string
+		lineageTag: 8914332e-59c1-5748-86ea-cb47f66b57cf
+		summarizeBy: none
+		sourceColumn: Group Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Industry
+		dataType: string
+		lineageTag: b5e0600c-8598-5eca-b060-b9242bf147e7
+		summarizeBy: none
+		sourceColumn: Industry
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 74e8c54e-c412-55f0-8b3a-bb87006e5960
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Market Segment'
+		dataType: string
+		lineageTag: 3ec289f8-e92b-557e-8643-68b530c1fd8f
+		summarizeBy: none
+		sourceColumn: Market Segment
+		sortByColumn: 'Segment Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Segment Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3260a5e8-1f53-5432-a01c-fd2e476bd90c
+		summarizeBy: none
+		sourceColumn: Segment Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Renewal Month'
+		dataType: string
+		lineageTag: 4fcd192d-242e-5fb4-8a73-aaa9b0c23648
+		summarizeBy: none
+		sourceColumn: Renewal Month
+		sortByColumn: 'Renewal Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Renewal Month Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1bc54c09-da0e-5e2b-962b-4b89a1c46bb2
+		summarizeBy: none
+		sourceColumn: Renewal Month Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Effective Date'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: a8e75f0e-6dfc-5bd9-a25c-f08c9add018b
+		summarizeBy: none
+		sourceColumn: Effective Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Term Date'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: 8855da15-2240-5b5c-ab07-36f3ff97cb47
+		summarizeBy: none
+		sourceColumn: Term Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Group Status'
+		dataType: string
+		lineageTag: 4c6f2efb-7227-532d-b32f-3dd8151282e3
+		summarizeBy: none
+		sourceColumn: Group Status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Groups = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        File.Contents(DataFolder & "groups.csv"),
+				        [Delimiter = ",", Columns = 9, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    BlanksToNull = Table.ReplaceValue(PromotedHeaders, "", null, Replacer.ReplaceValue, {"TermDate"}),
+				    ChangedType = Table.TransformColumnTypes(
+				        BlanksToNull,
+				        {
+				            {"GroupID", type text}, {"GroupName", type text}, {"Industry", type text}, {"State", type text},
+				            {"MarketSegment", type text}, {"RenewalMonth", Int64.Type},
+				            {"EffectiveDate", type date}, {"TermDate", type date}, {"GroupStatus", type text}
+				        },
+				        "en-US"
+				    ),
+				    AddedSegmentSort = Table.AddColumn(
+				        ChangedType, "Segment Sort",
+				        each if [MarketSegment] = "51-249" then 1 else if [MarketSegment] = "250-999" then 2 else 3,
+				        Int64.Type
+				    ),
+				    AddedRenewalMonth = Table.AddColumn(
+				        AddedSegmentSort, "Renewal Month Name",
+				        each Date.ToText(#date(2000, [RenewalMonth], 1), [Format = "MMMM", Culture = "en-US"]),
+				        type text
+				    ),
+				    Renamed = Table.RenameColumns(
+				        AddedRenewalMonth,
+				        {
+				            {"GroupID", "Group ID"}, {"GroupName", "Group Name"}, {"MarketSegment", "Market Segment"},
+				            {"RenewalMonth", "Renewal Month Number"}, {"Renewal Month Name", "Renewal Month"},
+				            {"EffectiveDate", "Effective Date"}, {"TermDate", "Term Date"}, {"GroupStatus", "Group Status"}
+				        }
+				    )
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

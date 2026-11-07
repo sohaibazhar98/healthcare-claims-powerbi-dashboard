@@ -1,0 +1,404 @@
+/// Home table for all report measures.
+table 'Key Measures'
+	lineageTag: 9d34f751-bc0b-55f9-be57-5538a543423f
+
+	/// Earned premium for the selected period.
+	measure 'Total Premium' = SUM ( Enrollment[Premium Amount] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1. Financials
+		lineageTag: 1303d092-968d-5fdc-8132-d7299730eca7
+
+	/// Plan paid claims, incurred basis (service date).
+	measure 'Total Paid' = SUM ( Claims[Paid Amount] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1. Financials
+		lineageTag: 085d6401-7311-5203-81f2-e33ac60302b7
+
+	/// Contracted allowed amount on paid claims.
+	measure 'Total Allowed' = SUM ( Claims[Allowed Amount] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1. Financials
+		lineageTag: f3f85137-28cc-5c02-a9fa-57c2ef76a7f8
+
+	/// Provider billed charges on all claims.
+	measure 'Total Billed' = SUM ( Claims[Billed Amount] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1. Financials
+		lineageTag: caace218-eaac-5f98-bb84-1731cdc9fbfb
+
+	/// Deductible, copay and coinsurance paid by members.
+	measure 'Member Cost Share' = SUM ( Claims[Member Cost Share] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1. Financials
+		lineageTag: 833c0876-598d-5b4b-ac34-040d81d18caf
+
+	/// Premium minus paid claims (before admin expense).
+	measure 'Underwriting Gain' = [Total Premium] - [Total Paid]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1. Financials
+		lineageTag: 44885a59-64f3-5d6a-a36b-9b591c1ce178
+
+	/// Paid claims divided by earned premium (incurred basis).
+	measure 'Loss Ratio' = DIVIDE ( [Total Paid], [Total Premium] )
+		formatString: 0.0%
+		displayFolder: 1. Financials
+		lineageTag: ab8a773f-88a3-5a6a-920a-e492576b9cc7
+
+	/// Target loss ratio used for pricing and alerts.
+	measure 'Loss Ratio Target' = 0.85
+		formatString: 0.0%
+		displayFolder: 1. Financials
+		lineageTag: b51cc928-8fd9-5170-a83a-c7e3610cdbe2
+
+	/// Loss ratio minus target, in points.
+	measure 'Loss Ratio vs Target' = IF ( NOT ISBLANK ( [Loss Ratio] ), [Loss Ratio] - [Loss Ratio Target] )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 1. Financials
+		lineageTag: 4bad33e8-53a3-509d-928f-1c6bb54b3f21
+
+	/// Paid claims by paid date (cash basis) using the inactive Paid Date relationship.
+	measure 'Total Paid (Paid Date)' = CALCULATE ( [Total Paid], USERELATIONSHIP ( Claims[Paid Date], 'Date'[Date] ) )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1. Financials
+		lineageTag: 035dc285-75b2-53a8-b703-72ec080adc5f
+
+	/// Year-to-date paid claims.
+	measure 'Total Paid YTD' = TOTALYTD ( [Total Paid], 'Date'[Date] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 1. Financials
+		lineageTag: ff4b1c09-e51c-5a8e-999e-67bf192f0119
+
+	/// Share of billed charges removed by provider contracts (paid claims).
+	measure 'Network Discount %' =
+			VAR BilledOnPaid =
+			    CALCULATE ( [Total Billed], Claims[Claim Status] = "Paid" )
+			RETURN
+			    DIVIDE ( BilledOnPaid - [Total Allowed], BilledOnPaid )
+		formatString: 0.0%
+		displayFolder: 1. Financials
+		lineageTag: 5eaef709-3990-5f38-b767-cc617f382564
+
+	/// Member cost share as a share of allowed.
+	measure 'Cost Share %' = DIVIDE ( [Member Cost Share], [Total Allowed] )
+		formatString: 0.0%
+		displayFolder: 1. Financials
+		lineageTag: 20d0c217-09a2-5d3c-8fb6-ad023dd0a751
+
+	/// Sum of members enrolled each month.
+	measure 'Member Months' = SUM ( Enrollment[Member Months] )
+		formatString: #,0
+		displayFolder: 2. Membership
+		lineageTag: 1b08c523-cd74-5a61-a1d2-8c1a15d053a7
+
+	/// Average enrolled members per month with enrollment.
+	measure 'Avg Monthly Members' = DIVIDE ( [Member Months], DISTINCTCOUNT ( Enrollment[Month Start] ) )
+		formatString: #,0
+		displayFolder: 2. Membership
+		lineageTag: 26858862-3354-5d78-ade6-984e58dbc59b
+
+	/// Employer groups with enrollment in the period.
+	measure 'Groups in Force' = DISTINCTCOUNT ( Enrollment[Group ID] )
+		formatString: #,0
+		displayFolder: 2. Membership
+		lineageTag: b19efcd3-9617-579a-a287-292ee1d67460
+
+	/// Paid claims per member per month.
+	measure 'Paid PMPM' = DIVIDE ( [Total Paid], [Member Months] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 3. PMPM & Trend
+		lineageTag: 1edd1d36-60a8-589b-a9a0-436190db55ba
+
+	/// Premium per member per month.
+	measure 'Premium PMPM' = DIVIDE ( [Total Premium], [Member Months] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 3. PMPM & Trend
+		lineageTag: e7114b63-cb4f-5834-a010-a9f0381bb6a9
+
+	/// Allowed per member per month.
+	measure 'Allowed PMPM' = DIVIDE ( [Total Allowed], [Member Months] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 3. PMPM & Trend
+		lineageTag: bdef4916-0afc-577c-b9c0-c14fe3484db4
+
+	/// Rolling 12-month paid PMPM ending at the latest month with enrollment in context.
+	measure 'Paid PMPM (R12)' =
+			VAR LastMonth =
+			    MAX ( Enrollment[Month Start] )
+			VAR Last12Months =
+			    DATESINPERIOD ( 'Date'[Date], EOMONTH ( LastMonth, 0 ), -12, MONTH )
+			RETURN
+			    IF ( NOT ISBLANK ( LastMonth ), CALCULATE ( [Paid PMPM], Last12Months ) )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 3. PMPM & Trend
+		lineageTag: e3453818-caef-5abe-a0e8-a9ad1b8db058
+
+	/// Rolling 12-month paid PMPM for the prior 12 months.
+	measure 'Paid PMPM (R12 PY)' =
+			VAR LastMonth =
+			    MAX ( Enrollment[Month Start] )
+			VAR Last12Months =
+			    DATESINPERIOD ( 'Date'[Date], EOMONTH ( LastMonth, -12 ), -12, MONTH )
+			RETURN
+			    IF ( NOT ISBLANK ( LastMonth ), CALCULATE ( [Paid PMPM], Last12Months ) )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 3. PMPM & Trend
+		lineageTag: b55eec84-c156-5bf0-8e4b-5e36510f81d7
+
+	/// Rolling 12-month paid PMPM vs the prior 12 months (claims trend).
+	measure 'PMPM Trend % (R12)' =
+			VAR CurrentPMPM = [Paid PMPM (R12)]
+			VAR PriorPMPM = [Paid PMPM (R12 PY)]
+			RETURN
+			    IF ( NOT ISBLANK ( PriorPMPM ), DIVIDE ( CurrentPMPM - PriorPMPM, PriorPMPM ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 3. PMPM & Trend
+		lineageTag: 54d85983-fb4c-5eab-a10e-239ba219b27e
+
+	/// Paid PMPM for the same period last year.
+	measure 'Paid PMPM PY' = CALCULATE ( [Paid PMPM], SAMEPERIODLASTYEAR ( 'Date'[Date] ) )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 3. PMPM & Trend
+		lineageTag: 8c6573b4-48ba-5422-a293-e3c226cd65e6
+
+	/// Paid PMPM change vs the same period last year.
+	measure 'Paid PMPM YoY %' =
+			VAR PriorPMPM = [Paid PMPM PY]
+			RETURN
+			    IF ( NOT ISBLANK ( PriorPMPM ), DIVIDE ( [Paid PMPM] - PriorPMPM, PriorPMPM ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 3. PMPM & Trend
+		lineageTag: b08b7d4e-9d00-5ce2-b388-6e4db5b30a54
+
+	/// Number of claims (all statuses).
+	measure 'Claim Count' = COUNTROWS ( Claims )
+		formatString: #,0
+		displayFolder: 4. Utilization
+		lineageTag: 0cd3cfb4-dc17-5ac9-9a9c-af8af4545eab
+
+	/// Claims with status Paid.
+	measure 'Paid Claims' = CALCULATE ( [Claim Count], Claims[Claim Status] = "Paid" )
+		formatString: #,0
+		displayFolder: 4. Utilization
+		lineageTag: fc4df0a7-1d9e-5bc7-a618-547b09fa6d28
+
+	/// Claims with status Denied.
+	measure 'Denied Claims' = CALCULATE ( [Claim Count], Claims[Claim Status] = "Denied" )
+		formatString: #,0
+		displayFolder: 4. Utilization
+		lineageTag: 21bb2461-3b7a-598a-867f-d37744e53f8e
+
+	/// Denied claims as a share of adjudicated (paid + denied) claims.
+	measure 'Denial Rate' = DIVIDE ( [Denied Claims], [Paid Claims] + [Denied Claims] )
+		formatString: 0.0%
+		displayFolder: 4. Utilization
+		lineageTag: 0402c3c6-bba3-5043-9565-d0af88fcace0
+
+	/// Annualized claims per 1,000 members.
+	measure 'Claims per 1,000' = DIVIDE ( [Claim Count], [Member Months] ) * 12000
+		formatString: #,0
+		displayFolder: 4. Utilization
+		lineageTag: 119cf322-a16a-58af-a4a7-4c3bb76ec5ce
+
+	/// Average plan paid per paid claim.
+	measure 'Avg Paid per Claim' = DIVIDE ( [Total Paid], [Paid Claims] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 4. Utilization
+		lineageTag: 95365764-481d-5d42-92bf-c03273ed7e89
+
+	/// Average days from service to payment (paid claims).
+	measure 'Avg Days to Pay' = CALCULATE ( AVERAGE ( Claims[Days to Pay] ), Claims[Claim Status] = "Paid" )
+		formatString: 0.0
+		displayFolder: 4. Utilization
+		lineageTag: ada604c1-8b95-5161-a9f5-ec66fce0a9ca
+
+	/// Share of allowed dollars at in-network providers.
+	measure 'In-Network %' = DIVIDE ( CALCULATE ( [Total Allowed], Providers[Network Status] = "In-Network" ), [Total Allowed] )
+		formatString: 0.0%
+		displayFolder: 4. Utilization
+		lineageTag: 6aa4050c-2c1f-5d14-8a52-8587e7eda920
+
+	/// Paid amount at which a member counts as a high-cost claimant.
+	measure 'HCC Threshold' = 100000
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5. High-Cost Claimants
+		lineageTag: 6afdab39-e784-5416-ba7e-7450d43c4155
+
+	/// Members whose paid claims in the selected period meet the HCC threshold.
+	measure 'High-Cost Claimants' =
+			VAR Threshold = [HCC Threshold]
+			RETURN
+			    COUNTROWS ( FILTER ( VALUES ( Claims[Member ID] ), [Total Paid] >= Threshold ) )
+		formatString: #,0
+		displayFolder: 5. High-Cost Claimants
+		lineageTag: 157cae06-041b-5a29-9092-76d643c280ac
+
+	/// Paid claims for high-cost claimants.
+	measure 'HCC Paid' =
+			VAR Threshold = [HCC Threshold]
+			RETURN
+			    SUMX ( FILTER ( VALUES ( Claims[Member ID] ), [Total Paid] >= Threshold ), [Total Paid] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 5. High-Cost Claimants
+		lineageTag: ecfec914-770b-59cb-8ce4-554591d0a402
+
+	/// Share of paid claims driven by high-cost claimants.
+	measure 'HCC % of Paid' = DIVIDE ( [HCC Paid], [Total Paid] )
+		formatString: 0.0%
+		displayFolder: 5. High-Cost Claimants
+		lineageTag: 9774d0f9-a59f-5b3a-8023-060236290678
+
+	/// Conditional formatting color for loss ratio.
+	measure 'Loss Ratio Color' =
+			VAR LR = [Loss Ratio]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( LR ), BLANK (),
+			        LR > 1, "#E0533F",
+			        LR > [Loss Ratio Target], "#E8912D",
+			        "#14A38B"
+			    )
+		displayFolder: 6. Formatting
+		lineageTag: 83a92ba9-92a6-5341-baa5-af711e39d3f9
+
+	/// Groups whose loss ratio is above 100% in the selected period.
+	measure 'Groups Over 100% LR' = COUNTROWS ( FILTER ( VALUES ( Groups[Group ID] ), [Loss Ratio] > 1 ) )
+		formatString: #,0
+		displayFolder: 1. Financials
+		lineageTag: 17c1a4f5-d7f3-5c18-a4fe-13572dba0798
+
+	/// Underwriting gain as a share of premium.
+	measure 'Underwriting Margin %' = DIVIDE ( [Underwriting Gain], [Total Premium] )
+		formatString: 0.0%
+		displayFolder: 1. Financials
+		lineageTag: 61e78003-9058-5836-9a17-e01c1798c814
+
+	/// Color for the loss ratio vs target label.
+	measure 'Loss Ratio Target Color' =
+			VAR Gap = [Loss Ratio vs Target]
+			RETURN
+			    IF ( ISBLANK ( Gap ), BLANK (), IF ( Gap > 0, "#E0533F", "#14A38B" ) )
+		displayFolder: 6. Formatting
+		lineageTag: 174f821c-465a-5487-9880-f6e7d47f40fd
+
+	/// KPI context line.
+	measure 'Lbl Premium PMPM' = IF ( NOT ISBLANK ( [Premium PMPM] ), FORMAT ( [Premium PMPM], "$#,0.00" ) & " per member / month" )
+		displayFolder: 7. KPI Labels
+		lineageTag: 7e57dbd0-edfa-5cd5-859c-ada5cf7c17c5
+
+	/// KPI context line.
+	measure 'Lbl Paid PMPM' = IF ( NOT ISBLANK ( [Paid PMPM] ), FORMAT ( [Paid PMPM], "$#,0.00" ) & " per member / month" )
+		displayFolder: 7. KPI Labels
+		lineageTag: 7db47700-a882-5963-996b-57bc6595e915
+
+	/// KPI context line.
+	measure 'Lbl Loss Ratio vs Target' =
+			VAR Gap = [Loss Ratio vs Target]
+			RETURN
+			    IF (
+			        NOT ISBLANK ( Gap ),
+			        IF ( Gap > 0, "▲ ", "▼ " ) & FORMAT ( ABS ( Gap ) * 100, "0.0" ) & " pts "
+			            & IF ( Gap > 0, "above", "below" ) & " target"
+			    )
+		displayFolder: 7. KPI Labels
+		lineageTag: 198520dd-1b6e-5017-aa9d-995f6c2550c2
+
+	/// KPI context line.
+	measure 'Lbl R12 PMPM' = IF ( NOT ISBLANK ( [Paid PMPM (R12)] ), "Last 12 months: " & FORMAT ( [Paid PMPM (R12)], "$#,0" ) )
+		displayFolder: 7. KPI Labels
+		lineageTag: 2010d167-c9c0-561f-9c05-e55ba392b3db
+
+	/// KPI context line.
+	measure 'Lbl PMPM Trend' =
+			IF (
+			    NOT ISBLANK ( [Paid PMPM (R12 PY)] ),
+			    FORMAT ( [Paid PMPM (R12 PY)], "$#,0" ) & " → " & FORMAT ( [Paid PMPM (R12)], "$#,0" ) & " PMPM"
+			)
+		displayFolder: 7. KPI Labels
+		lineageTag: 9eedbe5c-0c06-53ff-988f-01c4e1b3eb8e
+
+	/// KPI context line.
+	measure 'Lbl Groups' = FORMAT ( [Groups in Force], "#,0" ) & " employer groups"
+		displayFolder: 7. KPI Labels
+		lineageTag: c7ba13dd-2ef2-5964-b628-230894fe6d92
+
+	/// KPI context line.
+	measure 'Lbl Claims per 1000' = FORMAT ( [Claims per 1,000], "#,0" ) & " per 1,000 members / yr"
+		displayFolder: 7. KPI Labels
+		lineageTag: 4af9c6e4-0ced-5602-aff1-358d6fd3c0aa
+
+	/// KPI context line.
+	measure 'Lbl Network Discount' = FORMAT ( [Network Discount %], "0.0%" ) & " network discount"
+		displayFolder: 7. KPI Labels
+		lineageTag: 08a0b319-265f-54a5-b083-1cfdf332192a
+
+	/// KPI context line.
+	measure 'Lbl Denied Claims' = FORMAT ( [Denied Claims], "#,0" ) & " claims denied"
+		displayFolder: 7. KPI Labels
+		lineageTag: ed6f5732-621a-5f3c-9946-197033ea21e4
+
+	/// KPI context line.
+	measure 'Lbl In-Network' = "of allowed dollars"
+		displayFolder: 7. KPI Labels
+		lineageTag: 5b07a5fa-2e1e-5320-84b3-ce9683484923
+
+	/// KPI context line.
+	measure 'Lbl Days to Pay' = "from service to payment"
+		displayFolder: 7. KPI Labels
+		lineageTag: af5d2242-cd85-514c-aac8-5db072197f57
+
+	/// KPI context line.
+	measure 'Lbl HCC' = FORMAT ( [High-Cost Claimants], "#,0" ) & " members at $100K+"
+		displayFolder: 7. KPI Labels
+		lineageTag: f0cfd961-b59a-58e5-a63d-d75bff5b88e4
+
+	/// KPI context line.
+	measure 'Lbl Avg Members' = FORMAT ( [Avg Monthly Members], "#,0" ) & " avg monthly members"
+		displayFolder: 7. KPI Labels
+		lineageTag: 61767926-439a-547b-adab-43d2e6752003
+
+	/// KPI context line.
+	measure 'Lbl Premium Total' = FORMAT ( [Total Premium] / 1000000, "$#,0.0" ) & "M earned premium"
+		displayFolder: 7. KPI Labels
+		lineageTag: 04526312-2132-5e89-9fce-2d1051e38ecc
+
+	/// KPI context line.
+	measure 'Lbl Paid Total' = FORMAT ( [Total Paid] / 1000000, "$#,0.0" ) & "M paid claims"
+		displayFolder: 7. KPI Labels
+		lineageTag: 9e453753-b531-5b6c-9e61-cde4752bdad1
+
+	/// KPI context line.
+	measure 'Lbl Margin' = FORMAT ( [Underwriting Margin %], "0.0%" ) & " of premium"
+		displayFolder: 7. KPI Labels
+		lineageTag: 3396ff8c-a10d-5564-97fc-3a91ae191bb3
+
+	/// KPI context line.
+	measure 'Lbl Groups Over 100' = "of " & FORMAT ( [Groups in Force], "#,0" ) & " groups in force"
+		displayFolder: 7. KPI Labels
+		lineageTag: e7e6dea2-ef82-5d1f-8c06-8632d23c94f5
+
+	/// KPI context line.
+	measure 'Lbl HCC Share' = FORMAT ( [HCC % of Paid], "0.0%" ) & " of paid claims"
+		displayFolder: 7. KPI Labels
+		lineageTag: 2beafff1-f69d-5c26-ac2c-e18e96231fc8
+
+	column 'Measure Holder'
+		dataType: string
+		isHidden
+		lineageTag: 0e9d5ecc-d685-54cb-8b8e-520d3aaf5ac0
+		summarizeBy: none
+		sourceColumn: Measure Holder
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Key Measures' = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [#"Measure Holder" = text], {})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation

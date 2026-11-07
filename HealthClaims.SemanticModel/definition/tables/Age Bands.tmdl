@@ -1,0 +1,37 @@
+/// Conformed age band dimension shared by Members (claims) and Enrollment (member months).
+table 'Age Bands'
+	lineageTag: f1895864-7863-5c5a-8c46-2714dc81d166
+
+	column 'Age Band'
+		dataType: string
+		isKey
+		lineageTag: b1957e5e-3601-5a48-8340-51126c379c7f
+		summarizeBy: none
+		sourceColumn: Age Band
+		sortByColumn: 'Age Band Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Band Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cc02750a-b497-51ee-8246-208773b16586
+		summarizeBy: none
+		sourceColumn: Age Band Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Age Bands' = m
+		mode: import
+		source =
+				let
+				    Source = #table(
+				        {"Age Band", "Age Band Sort"},
+				        {{"0-17", 1}, {"18-29", 2}, {"30-39", 3}, {"40-49", 4}, {"50-59", 5}, {"60+", 6}}
+				    ),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"Age Band", type text}, {"Age Band Sort", Int64.Type}})
+				in
+				    ChangedType
+
+	annotation PBI_ResultType = Table

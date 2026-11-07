@@ -1,0 +1,116 @@
+/// Enrolled members (subscribers and dependents). Age and age band as of Jan 1, 2026.
+table Members
+	lineageTag: a8e9663e-8f48-5505-be87-5d601b87aa7c
+
+	column 'Member ID'
+		dataType: string
+		isKey
+		lineageTag: 9894d690-9e91-5b06-a844-cd0ccbbe47db
+		summarizeBy: none
+		sourceColumn: Member ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Relationship
+		dataType: string
+		lineageTag: 7b0bd9b9-174d-5218-ad60-1cfa7a4e882c
+		summarizeBy: none
+		sourceColumn: Relationship
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 8e72d094-0584-5fae-926b-f42603b1ac45
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Birth Date'
+		dataType: dateTime
+		isHidden
+		formatString: m/d/yyyy
+		lineageTag: 82dfe056-f673-5f13-8288-4edd1b8d052b
+		summarizeBy: none
+		sourceColumn: Birth Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Age
+		dataType: int64
+		formatString: 0
+		lineageTag: 83703028-032e-520c-bdd3-76c838e9c435
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Band'
+		dataType: string
+		isHidden
+		lineageTag: 6d2a5901-9590-5fe9-9dba-84efed53ce20
+		summarizeBy: none
+		sourceColumn: Age Band
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Enroll Start'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: 188674c7-fda6-5252-b57a-568aa2dae5a3
+		summarizeBy: none
+		sourceColumn: Enroll Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Enroll End'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: 68dfe1b7-dc1f-51eb-9248-d98b0898cf12
+		summarizeBy: none
+		sourceColumn: Enroll End
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Members = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        File.Contents(DataFolder & "members.csv"),
+				        [Delimiter = ",", Columns = 10, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    // Group and plan live on the fact tables, so they are dropped here to keep one filter path
+				    SelectedColumns = Table.SelectColumns(
+				        PromotedHeaders,
+				        {"MemberID", "Relationship", "Gender", "BirthDate", "Age", "AgeBand", "EnrollStart", "EnrollEnd"}
+				    ),
+				    BlanksToNull = Table.ReplaceValue(SelectedColumns, "", null, Replacer.ReplaceValue, {"EnrollEnd"}),
+				    ChangedType = Table.TransformColumnTypes(
+				        BlanksToNull,
+				        {
+				            {"MemberID", type text}, {"Relationship", type text}, {"Gender", type text},
+				            {"BirthDate", type date}, {"Age", Int64.Type}, {"AgeBand", type text},
+				            {"EnrollStart", type date}, {"EnrollEnd", type date}
+				        },
+				        "en-US"
+				    ),
+				    Renamed = Table.RenameColumns(
+				        ChangedType,
+				        {
+				            {"MemberID", "Member ID"}, {"BirthDate", "Birth Date"}, {"AgeBand", "Age Band"},
+				            {"EnrollStart", "Enroll Start"}, {"EnrollEnd", "Enroll End"}
+				        }
+				    )
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

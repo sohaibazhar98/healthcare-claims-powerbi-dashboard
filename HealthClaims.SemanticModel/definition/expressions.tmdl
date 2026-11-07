@@ -1,0 +1,6 @@
+/// Folder that contains the CSV files. Must end with a backslash.
+expression DataFolder = "C:\Users\sohai\OneDrive\Desktop\HealthClaimsDashboard\Data\" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: 6c8db6c1-1cc7-5327-81c0-d06a1c05300a
+
+	annotation PBI_ResultType = Text
+

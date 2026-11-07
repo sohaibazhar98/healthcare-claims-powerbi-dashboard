@@ -1,0 +1,91 @@
+/// Fact table: member months and earned premium by month, group, plan and age band.
+table Enrollment
+	lineageTag: 41aa293e-2692-50cc-a562-d39248fd9fa7
+
+	column 'Month Start'
+		dataType: dateTime
+		isHidden
+		formatString: mmm yyyy
+		lineageTag: 6453ba5c-1d80-550f-9a9e-f3f5f5ad7876
+		summarizeBy: none
+		sourceColumn: Month Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Group ID'
+		dataType: string
+		isHidden
+		lineageTag: 9bb7f6e4-1dd5-53c9-93f0-bce35e663932
+		summarizeBy: none
+		sourceColumn: Group ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Plan ID'
+		dataType: string
+		isHidden
+		lineageTag: 914bec08-95d8-5526-9f96-7082db23ca58
+		summarizeBy: none
+		sourceColumn: Plan ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Band'
+		dataType: string
+		isHidden
+		lineageTag: 0f014ca9-b90c-5472-b6fd-5d1e03fdc628
+		summarizeBy: none
+		sourceColumn: Age Band
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Member Months'
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 00ca749a-5886-5fde-a573-30a5b41ba43a
+		summarizeBy: sum
+		sourceColumn: Member Months
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Premium Amount'
+		dataType: decimal
+		isHidden
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 941f7524-54f0-5fa6-9ce2-500b149a8078
+		summarizeBy: sum
+		sourceColumn: Premium Amount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Enrollment = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        File.Contents(DataFolder & "enrollment.csv"),
+				        [Delimiter = ",", Columns = 6, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    ChangedType = Table.TransformColumnTypes(
+				        PromotedHeaders,
+				        {
+				            {"MonthStart", type date}, {"GroupID", type text}, {"PlanID", type text},
+				            {"AgeBand", type text}, {"MemberMonths", Int64.Type}, {"PremiumAmount", Currency.Type}
+				        },
+				        "en-US"
+				    ),
+				    Renamed = Table.RenameColumns(
+				        ChangedType,
+				        {
+				            {"MonthStart", "Month Start"}, {"GroupID", "Group ID"}, {"PlanID", "Plan ID"},
+				            {"AgeBand", "Age Band"}, {"MemberMonths", "Member Months"}, {"PremiumAmount", "Premium Amount"}
+				        }
+				    )
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

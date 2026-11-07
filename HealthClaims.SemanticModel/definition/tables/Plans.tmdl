@@ -1,0 +1,81 @@
+/// Benefit plans offered to groups.
+table Plans
+	lineageTag: cbcc7df1-ad29-5844-956e-06dc8eae4005
+
+	column 'Plan ID'
+		dataType: string
+		isKey
+		lineageTag: d85062b6-eaf3-5604-b481-2c60f413732c
+		summarizeBy: none
+		sourceColumn: Plan ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Plan Name'
+		dataType: string
+		lineageTag: c9ccb185-0c8b-5ffa-8ee5-2d7319526519
+		summarizeBy: none
+		sourceColumn: Plan Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Plan Type'
+		dataType: string
+		lineageTag: ae002224-628d-503a-a12b-9e4294051dff
+		summarizeBy: none
+		sourceColumn: Plan Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Deductible
+		dataType: int64
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 59e42730-c29c-5b86-a22d-f758c62e22a6
+		summarizeBy: none
+		sourceColumn: Deductible
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'OOP Max'
+		dataType: int64
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 4ffa4b10-814c-5251-90ad-18c9bb4811c4
+		summarizeBy: none
+		sourceColumn: OOP Max
+
+		annotation SummarizationSetBy = Automatic
+
+	column Coinsurance
+		dataType: double
+		formatString: 0%
+		lineageTag: 2bbb7fd8-de6f-577f-a1be-682465892d59
+		summarizeBy: none
+		sourceColumn: Coinsurance
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Plans = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        File.Contents(DataFolder & "plans.csv"),
+				        [Delimiter = ",", Columns = 6, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    ChangedType = Table.TransformColumnTypes(
+				        PromotedHeaders,
+				        {
+				            {"PlanID", type text}, {"PlanName", type text}, {"PlanType", type text},
+				            {"Deductible", Int64.Type}, {"OOPMax", Int64.Type}, {"Coinsurance", type number}
+				        },
+				        "en-US"
+				    ),
+				    Renamed = Table.RenameColumns(
+				        ChangedType,
+				        {{"PlanID", "Plan ID"}, {"PlanName", "Plan Name"}, {"PlanType", "Plan Type"}, {"OOPMax", "OOP Max"}}
+				    )
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

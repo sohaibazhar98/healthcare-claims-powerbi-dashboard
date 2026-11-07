@@ -1,0 +1,82 @@
+/// Rendering providers and facilities with network status. All names are fictional.
+table Providers
+	lineageTag: 78434c09-f435-5c33-a84f-fa46a10d52c2
+
+	column 'Provider ID'
+		dataType: string
+		isKey
+		lineageTag: 8df53643-5647-5049-a859-220bc37aa09c
+		summarizeBy: none
+		sourceColumn: Provider ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Provider Name'
+		dataType: string
+		lineageTag: 15032740-d3c7-5b6e-94e5-76ab3bb91b8d
+		summarizeBy: none
+		sourceColumn: Provider Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Provider Type'
+		dataType: string
+		lineageTag: b13bd3d0-e983-5498-a3e4-0340b2f051c0
+		summarizeBy: none
+		sourceColumn: Provider Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Specialty
+		dataType: string
+		lineageTag: 72950582-fc80-59c9-878a-35d12fd6db83
+		summarizeBy: none
+		sourceColumn: Specialty
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Network Status'
+		dataType: string
+		lineageTag: d507c16d-a902-560f-8bed-bb9d602f6936
+		summarizeBy: none
+		sourceColumn: Network Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 69fb94b5-33f3-5c63-8f13-aa17822090f7
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Providers = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        File.Contents(DataFolder & "providers.csv"),
+				        [Delimiter = ",", Columns = 6, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    ChangedType = Table.TransformColumnTypes(
+				        PromotedHeaders,
+				        {
+				            {"ProviderID", type text}, {"ProviderName", type text}, {"ProviderType", type text},
+				            {"Specialty", type text}, {"NetworkStatus", type text}, {"State", type text}
+				        },
+				        "en-US"
+				    ),
+				    Renamed = Table.RenameColumns(
+				        ChangedType,
+				        {
+				            {"ProviderID", "Provider ID"}, {"ProviderName", "Provider Name"},
+				            {"ProviderType", "Provider Type"}, {"NetworkStatus", "Network Status"}
+				        }
+				    )
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

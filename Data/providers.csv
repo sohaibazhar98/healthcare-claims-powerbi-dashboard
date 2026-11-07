@@ -1,0 +1,265 @@
+ProviderID,ProviderName,ProviderType,Specialty,NetworkStatus,State
+P0001,Northgate General Hospital,Hospital,Acute Care Hospital,In-Network,MD
+P0002,Westbury General Hospital,Hospital,Acute Care Hospital,In-Network,MD
+P0003,Eastwick Regional Medical Center,Hospital,Acute Care Hospital,In-Network,MD
+P0004,Lakeshore General Hospital,Hospital,Acute Care Hospital,In-Network,VA
+P0005,Riverbend Regional Medical Center,Hospital,Acute Care Hospital,In-Network,MD
+P0006,Oakmont Regional Medical Center,Hospital,Acute Care Hospital,In-Network,VA
+P0007,Pinecrest Medical Center,Hospital,Acute Care Hospital,In-Network,DC
+P0008,Glenhaven Regional Medical Center,Hospital,Acute Care Hospital,In-Network,VA
+P0009,Maple Run Regional Medical Center,Hospital,Acute Care Hospital,In-Network,MD
+P0010,Fairhollow Regional Medical Center,Hospital,Acute Care Hospital,In-Network,VA
+P0011,Brookfield Regional Medical Center,Hospital,Acute Care Hospital,In-Network,DC
+P0012,Kingsley Medical Center,Hospital,Acute Care Hospital,In-Network,MD
+P0013,Mensah Family Medicine Group,Physician Group,Family Medicine,Out-of-Network,MD
+P0014,Kingsley Family Medicine Associates,Physician Group,Family Medicine,In-Network,MD
+P0015,Albright & Reyes Family Medicine,Physician Group,Family Medicine,In-Network,MD
+P0016,Johnson Family Medicine Group,Physician Group,Family Medicine,In-Network,MD
+P0017,Millcrest Family Medicine Associates,Physician Group,Family Medicine,In-Network,MD
+P0018,Nakamura & Okafor Family Medicine,Physician Group,Family Medicine,Out-of-Network,MD
+P0019,Seabrook Point Family Medicine Associates,Physician Group,Family Medicine,In-Network,DC
+P0020,Castillo Family Medicine Group,Physician Group,Family Medicine,In-Network,MD
+P0021,Maple Run Family Medicine Associates,Physician Group,Family Medicine,In-Network,MD
+P0022,Delgado & Castillo Family Medicine,Physician Group,Family Medicine,In-Network,VA
+P0023,Cedar Hollow Family Medicine Associates,Physician Group,Family Medicine,In-Network,MD
+P0024,Albright Family Medicine Group,Physician Group,Family Medicine,In-Network,VA
+P0025,Patel & Okafor Family Medicine,Physician Group,Family Medicine,In-Network,DC
+P0026,Patel & Whitfield Family Medicine,Physician Group,Family Medicine,Out-of-Network,MD
+P0027,Moreau Family Medicine Group,Physician Group,Family Medicine,In-Network,MD
+P0028,Hartwell Family Medicine Associates,Physician Group,Family Medicine,In-Network,MD
+P0029,Whitfield Family Medicine Group,Physician Group,Family Medicine,In-Network,DC
+P0030,Brookfield Family Medicine Associates,Physician Group,Family Medicine,In-Network,VA
+P0031,Nakamura & Romero Family Medicine,Physician Group,Family Medicine,In-Network,MD
+P0032,Albright & Osei Family Medicine,Physician Group,Family Medicine,In-Network,MD
+P0033,Nakamura & Johnson Family Medicine,Physician Group,Family Medicine,In-Network,MD
+P0034,Haddad & Whitfield Family Medicine,Physician Group,Family Medicine,In-Network,MD
+P0035,Delgado & Moreau Family Medicine,Physician Group,Family Medicine,Out-of-Network,DC
+P0036,Romero Family Medicine Group,Physician Group,Family Medicine,In-Network,MD
+P0037,Nakamura Family Medicine Group,Physician Group,Family Medicine,In-Network,MD
+P0038,Osei & Johnson Family Medicine,Physician Group,Family Medicine,In-Network,MD
+P0039,Ridgeline Family Medicine Associates,Physician Group,Family Medicine,Out-of-Network,VA
+P0040,Northgate Family Medicine Associates,Physician Group,Family Medicine,In-Network,DC
+P0041,Chaudhry Family Medicine Group,Physician Group,Family Medicine,In-Network,DC
+P0042,Tanaka Family Medicine Group,Physician Group,Family Medicine,In-Network,MD
+P0043,Okafor Family Medicine Group,Physician Group,Family Medicine,Out-of-Network,MD
+P0044,Siddiqui & Ferreira Family Medicine,Physician Group,Family Medicine,In-Network,VA
+P0045,Eastwick Family Medicine Associates,Physician Group,Family Medicine,In-Network,MD
+P0046,Kowalski & Lindqvist Family Medicine,Physician Group,Family Medicine,Out-of-Network,MD
+P0047,Mensah Internal Medicine Group,Physician Group,Internal Medicine,In-Network,MD
+P0048,Nakamura Internal Medicine Group,Physician Group,Internal Medicine,In-Network,MD
+P0049,Reyes & Kowalski Internal Medicine,Physician Group,Internal Medicine,In-Network,MD
+P0050,Brennan & Okafor Internal Medicine,Physician Group,Internal Medicine,Out-of-Network,VA
+P0051,Abernathy & Abernathy Internal Medicine,Physician Group,Internal Medicine,In-Network,MD
+P0052,Eastwick Internal Medicine Associates,Physician Group,Internal Medicine,In-Network,MD
+P0053,Mensah & Brennan Internal Medicine,Physician Group,Internal Medicine,In-Network,MD
+P0054,Whitfield Internal Medicine Group,Physician Group,Internal Medicine,In-Network,MD
+P0055,Kingsley Internal Medicine Associates,Physician Group,Internal Medicine,In-Network,VA
+P0056,Stonebridge Internal Medicine Associates,Physician Group,Internal Medicine,In-Network,MD
+P0057,Johnson & Brennan Internal Medicine,Physician Group,Internal Medicine,In-Network,MD
+P0058,Riverbend Internal Medicine Associates,Physician Group,Internal Medicine,In-Network,MD
+P0059,Kim Internal Medicine Group,Physician Group,Internal Medicine,In-Network,MD
+P0060,Westbury Internal Medicine Associates,Physician Group,Internal Medicine,In-Network,MD
+P0061,Abernathy & Mensah Internal Medicine,Physician Group,Internal Medicine,In-Network,VA
+P0062,Ferreira & Nguyen Internal Medicine,Physician Group,Internal Medicine,Out-of-Network,DC
+P0063,Brennan & Osei Internal Medicine,Physician Group,Internal Medicine,In-Network,MD
+P0064,Lakeshore Internal Medicine Associates,Physician Group,Internal Medicine,In-Network,VA
+P0065,Nguyen & Tanaka Internal Medicine,Physician Group,Internal Medicine,In-Network,MD
+P0066,Ridgeline Internal Medicine Associates,Physician Group,Internal Medicine,In-Network,MD
+P0067,Siddiqui Internal Medicine Group,Physician Group,Internal Medicine,In-Network,DC
+P0068,Brennan & Tanaka Internal Medicine,Physician Group,Internal Medicine,In-Network,VA
+P0069,Patel & Abernathy Pediatrics,Physician Group,Pediatrics,In-Network,MD
+P0070,Lakeshore Pediatrics Associates,Physician Group,Pediatrics,In-Network,MD
+P0071,Chaudhry & Osei Pediatrics,Physician Group,Pediatrics,In-Network,VA
+P0072,Okafor & Reyes Pediatrics,Physician Group,Pediatrics,Out-of-Network,MD
+P0073,Okafor & Desai Pediatrics,Physician Group,Pediatrics,In-Network,VA
+P0074,Cedar Hollow Pediatrics Associates,Physician Group,Pediatrics,Out-of-Network,MD
+P0075,Tanaka Pediatrics Group,Physician Group,Pediatrics,In-Network,MD
+P0076,Bayfront Pediatrics Associates,Physician Group,Pediatrics,In-Network,MD
+P0077,Osei Pediatrics Group,Physician Group,Pediatrics,Out-of-Network,MD
+P0078,Castillo & Castillo Pediatrics,Physician Group,Pediatrics,In-Network,MD
+P0079,Hartwell Pediatrics Associates,Physician Group,Pediatrics,In-Network,MD
+P0080,Siddiqui Pediatrics Group,Physician Group,Pediatrics,In-Network,MD
+P0081,Ridgeline Pediatrics Associates,Physician Group,Pediatrics,In-Network,DC
+P0082,Mensah Pediatrics Group,Physician Group,Pediatrics,In-Network,MD
+P0083,Patel Pediatrics Group,Physician Group,Pediatrics,In-Network,VA
+P0084,Kowalski & Tanaka Pediatrics,Physician Group,Pediatrics,In-Network,DC
+P0085,Nguyen & Romero OB/GYN,Physician Group,OB/GYN,In-Network,MD
+P0086,Kingsley OB/GYN Associates,Physician Group,OB/GYN,Out-of-Network,VA
+P0087,Iverson OB/GYN Group,Physician Group,OB/GYN,Out-of-Network,MD
+P0088,Kowalski & Moreau OB/GYN,Physician Group,OB/GYN,In-Network,VA
+P0089,Nakamura & Tanaka OB/GYN,Physician Group,OB/GYN,In-Network,MD
+P0090,Millcrest OB/GYN Associates,Physician Group,OB/GYN,Out-of-Network,DC
+P0091,Patel & Delgado OB/GYN,Physician Group,OB/GYN,In-Network,MD
+P0092,Stonebridge OB/GYN Associates,Physician Group,OB/GYN,In-Network,DC
+P0093,Cedar Hollow OB/GYN Associates,Physician Group,OB/GYN,In-Network,MD
+P0094,Brookfield OB/GYN Associates,Physician Group,OB/GYN,In-Network,VA
+P0095,Nakamura & Romero OB/GYN,Physician Group,OB/GYN,In-Network,MD
+P0096,Nguyen OB/GYN Group,Physician Group,OB/GYN,In-Network,VA
+P0097,Iverson Orthopedics Group,Physician Group,Orthopedics,In-Network,MD
+P0098,Moreau Orthopedics Group,Physician Group,Orthopedics,In-Network,MD
+P0099,Abernathy Orthopedics Group,Physician Group,Orthopedics,In-Network,MD
+P0100,Lindqvist & Lindqvist Orthopedics,Physician Group,Orthopedics,In-Network,VA
+P0101,Kingsley Orthopedics Associates,Physician Group,Orthopedics,Out-of-Network,MD
+P0102,Ferreira & Nguyen Orthopedics,Physician Group,Orthopedics,In-Network,MD
+P0103,Bayfront Orthopedics Associates,Physician Group,Orthopedics,In-Network,VA
+P0104,Romero Orthopedics Group,Physician Group,Orthopedics,In-Network,DC
+P0105,Whitfield Orthopedics Group,Physician Group,Orthopedics,In-Network,MD
+P0106,Delgado & Okafor Orthopedics,Physician Group,Orthopedics,In-Network,MD
+P0107,Fairhollow Orthopedics Associates,Physician Group,Orthopedics,In-Network,MD
+P0108,Eastwick Orthopedics Associates,Physician Group,Orthopedics,In-Network,DC
+P0109,Lakeshore Orthopedics Associates,Physician Group,Orthopedics,In-Network,MD
+P0110,Moreau & Reyes Orthopedics,Physician Group,Orthopedics,In-Network,MD
+P0111,Albright & Whitfield Cardiology,Physician Group,Cardiology,In-Network,MD
+P0112,Chaudhry Cardiology Group,Physician Group,Cardiology,In-Network,MD
+P0113,Reyes & Iverson Cardiology,Physician Group,Cardiology,In-Network,MD
+P0114,Maple Run Cardiology Associates,Physician Group,Cardiology,In-Network,VA
+P0115,Haddad Cardiology Group,Physician Group,Cardiology,In-Network,MD
+P0116,Stonebridge Cardiology Associates,Physician Group,Cardiology,In-Network,VA
+P0117,Lakeshore Cardiology Associates,Physician Group,Cardiology,In-Network,MD
+P0118,Tanaka & Whitfield Cardiology,Physician Group,Cardiology,Out-of-Network,MD
+P0119,Okafor & Desai Cardiology,Physician Group,Cardiology,In-Network,MD
+P0120,Johnson & Reyes Cardiology,Physician Group,Cardiology,Out-of-Network,VA
+P0121,Fairhollow Dermatology Associates,Physician Group,Dermatology,In-Network,MD
+P0122,Hartwell Dermatology Associates,Physician Group,Dermatology,In-Network,MD
+P0123,Moreau Dermatology Group,Physician Group,Dermatology,In-Network,MD
+P0124,Cedar Hollow Dermatology Associates,Physician Group,Dermatology,In-Network,VA
+P0125,Okafor & Iverson Dermatology,Physician Group,Dermatology,In-Network,MD
+P0126,Nguyen Dermatology Group,Physician Group,Dermatology,In-Network,MD
+P0127,Glenhaven Dermatology Associates,Physician Group,Dermatology,In-Network,MD
+P0128,Abernathy & Delgado Dermatology,Physician Group,Dermatology,In-Network,MD
+P0129,Lakeshore Behavioral Health Associates,Physician Group,Behavioral Health,In-Network,MD
+P0130,Whitfield Behavioral Health Group,Physician Group,Behavioral Health,In-Network,DC
+P0131,Ferreira & Reyes Behavioral Health,Physician Group,Behavioral Health,In-Network,MD
+P0132,Tanaka & Haddad Behavioral Health,Physician Group,Behavioral Health,In-Network,MD
+P0133,Ferreira Behavioral Health Group,Physician Group,Behavioral Health,In-Network,DC
+P0134,Johnson & Lindqvist Behavioral Health,Physician Group,Behavioral Health,In-Network,MD
+P0135,Kingsley Behavioral Health Associates,Physician Group,Behavioral Health,In-Network,MD
+P0136,Albright Behavioral Health Group,Physician Group,Behavioral Health,Out-of-Network,MD
+P0137,Eastwick Behavioral Health Associates,Physician Group,Behavioral Health,Out-of-Network,DC
+P0138,Brennan & Whitfield Behavioral Health,Physician Group,Behavioral Health,Out-of-Network,MD
+P0139,Mensah & Nakamura Behavioral Health,Physician Group,Behavioral Health,In-Network,MD
+P0140,Mensah Behavioral Health Group,Physician Group,Behavioral Health,In-Network,VA
+P0141,Ferreira & Kim Behavioral Health,Physician Group,Behavioral Health,In-Network,MD
+P0142,Riverbend Behavioral Health Associates,Physician Group,Behavioral Health,Out-of-Network,MD
+P0143,Northgate Behavioral Health Associates,Physician Group,Behavioral Health,In-Network,MD
+P0144,Chaudhry & Johnson Behavioral Health,Physician Group,Behavioral Health,In-Network,MD
+P0145,Iverson & Kowalski Behavioral Health,Physician Group,Behavioral Health,Out-of-Network,VA
+P0146,Abernathy & Chaudhry Behavioral Health,Physician Group,Behavioral Health,In-Network,DC
+P0147,Nguyen Behavioral Health Group,Physician Group,Behavioral Health,In-Network,MD
+P0148,Johnson Behavioral Health Group,Physician Group,Behavioral Health,In-Network,MD
+P0149,Albright & Abernathy Gastroenterology,Physician Group,Gastroenterology,In-Network,VA
+P0150,Siddiqui Gastroenterology Group,Physician Group,Gastroenterology,Out-of-Network,MD
+P0151,Cedar Hollow Gastroenterology Associates,Physician Group,Gastroenterology,In-Network,MD
+P0152,Willow Glen Gastroenterology Associates,Physician Group,Gastroenterology,In-Network,DC
+P0153,Pinecrest Gastroenterology Associates,Physician Group,Gastroenterology,Out-of-Network,DC
+P0154,Northgate Gastroenterology Associates,Physician Group,Gastroenterology,In-Network,MD
+P0155,Nguyen Gastroenterology Group,Physician Group,Gastroenterology,Out-of-Network,MD
+P0156,Albright Gastroenterology Group,Physician Group,Gastroenterology,In-Network,MD
+P0157,Tanaka Oncology Group,Physician Group,Oncology,In-Network,DC
+P0158,Millcrest Oncology Associates,Physician Group,Oncology,In-Network,VA
+P0159,Johnson Oncology Group,Physician Group,Oncology,In-Network,VA
+P0160,Patel & Abernathy Oncology,Physician Group,Oncology,In-Network,MD
+P0161,Cedar Hollow Oncology Associates,Physician Group,Oncology,In-Network,DC
+P0162,Mensah & Lindqvist Oncology,Physician Group,Oncology,In-Network,MD
+P0163,Ferreira Oncology Group,Physician Group,Oncology,In-Network,VA
+P0164,Stonebridge Neurology Associates,Physician Group,Neurology,Out-of-Network,VA
+P0165,Nguyen & Lindqvist Neurology,Physician Group,Neurology,In-Network,MD
+P0166,Romero Neurology Group,Physician Group,Neurology,In-Network,VA
+P0167,Abernathy & Reyes Neurology,Physician Group,Neurology,In-Network,MD
+P0168,Castillo & Kowalski Neurology,Physician Group,Neurology,In-Network,DC
+P0169,Millcrest Neurology Associates,Physician Group,Neurology,In-Network,MD
+P0170,Ashby Neurology Associates,Physician Group,Neurology,In-Network,MD
+P0171,Patel Physical Therapy Group,Physician Group,Physical Therapy,In-Network,MD
+P0172,Lindqvist Physical Therapy Group,Physician Group,Physical Therapy,In-Network,MD
+P0173,Haddad Physical Therapy Group,Physician Group,Physical Therapy,In-Network,MD
+P0174,Abernathy Physical Therapy Group,Physician Group,Physical Therapy,In-Network,MD
+P0175,Brookfield Physical Therapy Associates,Physician Group,Physical Therapy,In-Network,VA
+P0176,Kim Physical Therapy Group,Physician Group,Physical Therapy,In-Network,MD
+P0177,Chaudhry Physical Therapy Group,Physician Group,Physical Therapy,In-Network,MD
+P0178,Northgate Physical Therapy Associates,Physician Group,Physical Therapy,In-Network,VA
+P0179,Cedar Hollow Physical Therapy Associates,Physician Group,Physical Therapy,In-Network,VA
+P0180,Lakeshore Physical Therapy Associates,Physician Group,Physical Therapy,Out-of-Network,VA
+P0181,Castillo Physical Therapy Group,Physician Group,Physical Therapy,Out-of-Network,MD
+P0182,Kowalski Physical Therapy Group,Physician Group,Physical Therapy,In-Network,MD
+P0183,Eastwick Endocrinology Associates,Physician Group,Endocrinology,In-Network,MD
+P0184,Harborview Endocrinology Associates,Physician Group,Endocrinology,In-Network,MD
+P0185,Kingsley Endocrinology Associates,Physician Group,Endocrinology,In-Network,MD
+P0186,Riverbend Endocrinology Associates,Physician Group,Endocrinology,In-Network,VA
+P0187,Albright & Romero Endocrinology,Physician Group,Endocrinology,In-Network,VA
+P0188,Albright Endocrinology Group,Physician Group,Endocrinology,In-Network,VA
+P0189,Albright Pulmonology Group,Physician Group,Pulmonology,In-Network,MD
+P0190,Kowalski & Whitfield Pulmonology,Physician Group,Pulmonology,In-Network,MD
+P0191,Iverson & Brennan Pulmonology,Physician Group,Pulmonology,In-Network,MD
+P0192,Tanaka & Ferreira Pulmonology,Physician Group,Pulmonology,In-Network,VA
+P0193,Abernathy & Okafor Pulmonology,Physician Group,Pulmonology,In-Network,MD
+P0194,Seabrook Point Pulmonology Associates,Physician Group,Pulmonology,In-Network,MD
+P0195,Neighborly Pharmacy #100,Pharmacy,Retail Pharmacy,In-Network,MD
+P0196,Neighborly Pharmacy #101,Pharmacy,Retail Pharmacy,In-Network,MD
+P0197,Corner Pharmacy #102,Pharmacy,Retail Pharmacy,In-Network,MD
+P0198,Greenleaf Pharmacy #103,Pharmacy,Retail Pharmacy,In-Network,MD
+P0199,Corner Pharmacy #104,Pharmacy,Retail Pharmacy,In-Network,MD
+P0200,Main Street Pharmacy #105,Pharmacy,Retail Pharmacy,In-Network,MD
+P0201,Main Street Pharmacy #106,Pharmacy,Retail Pharmacy,In-Network,MD
+P0202,Main Street Pharmacy #107,Pharmacy,Retail Pharmacy,In-Network,MD
+P0203,Main Street Pharmacy #108,Pharmacy,Retail Pharmacy,In-Network,VA
+P0204,Neighborly Pharmacy #109,Pharmacy,Retail Pharmacy,In-Network,VA
+P0205,Corner Pharmacy #110,Pharmacy,Retail Pharmacy,In-Network,MD
+P0206,Neighborly Pharmacy #111,Pharmacy,Retail Pharmacy,In-Network,DC
+P0207,Corner Pharmacy #112,Pharmacy,Retail Pharmacy,In-Network,MD
+P0208,Corner Pharmacy #113,Pharmacy,Retail Pharmacy,In-Network,VA
+P0209,Greenleaf Pharmacy #114,Pharmacy,Retail Pharmacy,In-Network,DC
+P0210,Neighborly Pharmacy #115,Pharmacy,Retail Pharmacy,In-Network,MD
+P0211,Brightway Pharmacy #116,Pharmacy,Retail Pharmacy,In-Network,MD
+P0212,Corner Pharmacy #117,Pharmacy,Retail Pharmacy,In-Network,MD
+P0213,Brightway Pharmacy #118,Pharmacy,Retail Pharmacy,In-Network,MD
+P0214,Brightway Pharmacy #119,Pharmacy,Retail Pharmacy,In-Network,MD
+P0215,Neighborly Pharmacy #120,Pharmacy,Retail Pharmacy,In-Network,MD
+P0216,Neighborly Pharmacy #121,Pharmacy,Retail Pharmacy,In-Network,VA
+P0217,Main Street Pharmacy #122,Pharmacy,Retail Pharmacy,In-Network,VA
+P0218,Main Street Pharmacy #123,Pharmacy,Retail Pharmacy,In-Network,MD
+P0219,Main Street Pharmacy #124,Pharmacy,Retail Pharmacy,In-Network,VA
+P0220,Corner Pharmacy #125,Pharmacy,Retail Pharmacy,In-Network,VA
+P0221,Brightway Pharmacy #126,Pharmacy,Retail Pharmacy,In-Network,MD
+P0222,Main Street Pharmacy #127,Pharmacy,Retail Pharmacy,In-Network,MD
+P0223,Brightway Pharmacy #128,Pharmacy,Retail Pharmacy,In-Network,VA
+P0224,Corner Pharmacy #129,Pharmacy,Retail Pharmacy,In-Network,MD
+P0225,Harborline Mail-Order Pharmacy,Pharmacy,Mail-Order Pharmacy,In-Network,MD
+P0226,Harborline Specialty Pharmacy,Pharmacy,Specialty Pharmacy,In-Network,MD
+P0227,Oakmont Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0228,Pinecrest Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0229,Glenhaven Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0230,Maple Run Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0231,Fairhollow Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0232,Brookfield Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0233,Kingsley Urgent Care,Urgent Care,Urgent Care,Out-of-Network,MD
+P0234,Harborview Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0235,Ridgeline Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0236,Stonebridge Urgent Care,Urgent Care,Urgent Care,In-Network,VA
+P0237,Bayfront Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0238,Millcrest Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0239,Cedar Hollow Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0240,Ashby Urgent Care,Urgent Care,Urgent Care,In-Network,MD
+P0241,Lakeshore Imaging,Imaging & Lab,Imaging & Lab,In-Network,MD
+P0242,Riverbend Imaging & Lab,Imaging & Lab,Imaging & Lab,Out-of-Network,DC
+P0243,Oakmont Imaging & Lab,Imaging & Lab,Imaging & Lab,In-Network,VA
+P0244,Pinecrest Imaging,Imaging & Lab,Imaging & Lab,In-Network,MD
+P0245,Glenhaven Diagnostic Lab,Imaging & Lab,Imaging & Lab,In-Network,MD
+P0246,Maple Run Diagnostic Lab,Imaging & Lab,Imaging & Lab,In-Network,MD
+P0247,Fairhollow Imaging,Imaging & Lab,Imaging & Lab,In-Network,MD
+P0248,Brookfield Imaging,Imaging & Lab,Imaging & Lab,In-Network,MD
+P0249,Kingsley Imaging,Imaging & Lab,Imaging & Lab,In-Network,DC
+P0250,Harborview Imaging,Imaging & Lab,Imaging & Lab,In-Network,DC
+P0251,Ridgeline Diagnostic Lab,Imaging & Lab,Imaging & Lab,In-Network,MD
+P0252,Stonebridge Imaging & Lab,Imaging & Lab,Imaging & Lab,In-Network,DC
+P0253,Bayfront Diagnostic Lab,Imaging & Lab,Imaging & Lab,In-Network,MD
+P0254,Millcrest Imaging,Imaging & Lab,Imaging & Lab,In-Network,MD
+P0255,Cedar Hollow Diagnostic Lab,Imaging & Lab,Imaging & Lab,In-Network,MD
+P0256,Ashby Diagnostic Lab,Imaging & Lab,Imaging & Lab,In-Network,MD
+P0257,Fairhollow Surgery Center,Ambulatory Surgery Center,Ambulatory Surgery,In-Network,MD
+P0258,Brookfield Surgery Center,Ambulatory Surgery Center,Ambulatory Surgery,In-Network,MD
+P0259,Kingsley Surgery Center,Ambulatory Surgery Center,Ambulatory Surgery,In-Network,MD
+P0260,Harborview Surgery Center,Ambulatory Surgery Center,Ambulatory Surgery,In-Network,MD
+P0261,Ridgeline Surgery Center,Ambulatory Surgery Center,Ambulatory Surgery,In-Network,MD
+P0262,Stonebridge Surgery Center,Ambulatory Surgery Center,Ambulatory Surgery,In-Network,MD
+P0263,Bayfront Surgery Center,Ambulatory Surgery Center,Ambulatory Surgery,In-Network,DC
+P0264,Millcrest Surgery Center,Ambulatory Surgery Center,Ambulatory Surgery,In-Network,VA

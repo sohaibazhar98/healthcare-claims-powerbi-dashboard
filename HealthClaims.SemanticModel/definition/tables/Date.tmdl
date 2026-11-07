@@ -1,0 +1,116 @@
+/// Calendar table (marked as date table). Active link to Claims[Service Date]; inactive to Claims[Paid Date].
+table 'Date'
+	lineageTag: e9a344dc-8749-5bb9-8c73-672c196b6f27
+	dataCategory: Time
+
+	column 'Date'
+		dataType: dateTime
+		isKey
+		formatString: m/d/yyyy
+		lineageTag: 3d83c451-376c-52d4-aa4c-e3dc7711535d
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: edd7f2b9-99db-5894-9f54-adbf9e4c9046
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		lineageTag: 1ee65a14-4341-5a21-87ca-b9866e6f50fa
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Quarter'
+		dataType: string
+		lineageTag: fb66d5a4-eab5-5c99-97b0-096212402243
+		summarizeBy: none
+		sourceColumn: Year Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3bd955a1-95f9-506b-82d7-71d786da5fe6
+		summarizeBy: none
+		sourceColumn: Month Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: 5a1f952c-4c7f-5826-85c4-17753596df5a
+		summarizeBy: none
+		sourceColumn: Month Name
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Start'
+		dataType: dateTime
+		formatString: mmm yyyy
+		lineageTag: 8980dc88-adb0-5cc5-a0bc-71d4791a63b3
+		summarizeBy: none
+		sourceColumn: Month Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Year Month'
+		dataType: string
+		lineageTag: d9350f80-d803-55c1-a7fa-bacdaf39420c
+		summarizeBy: none
+		sourceColumn: Year Month
+		sortByColumn: 'Year Month Key'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5c15ce91-5b4a-5ed3-8524-8c12b6efa2ad
+		summarizeBy: none
+		sourceColumn: Year Month Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Date' = m
+		mode: import
+		source =
+				let
+				    StartDate = #date(2024, 1, 1),
+				    EndDate = #date(2026, 12, 31),
+				    DateList = List.Dates(StartDate, Duration.Days(EndDate - StartDate) + 1, #duration(1, 0, 0, 0)),
+				    AsTable = Table.FromList(DateList, Splitter.SplitByNothing(), {"Date"}),
+				    TypedDate = Table.TransformColumnTypes(AsTable, {{"Date", type date}}),
+				    AddYear = Table.AddColumn(TypedDate, "Year", each Date.Year([Date]), Int64.Type),
+				    AddQuarter = Table.AddColumn(AddYear, "Quarter", each "Q" & Text.From(Date.QuarterOfYear([Date])), type text),
+				    AddYearQuarter = Table.AddColumn(AddQuarter, "Year Quarter", each Text.From([Year]) & " " & [Quarter], type text),
+				    AddMonthNumber = Table.AddColumn(AddYearQuarter, "Month Number", each Date.Month([Date]), Int64.Type),
+				    AddMonthName = Table.AddColumn(
+				        AddMonthNumber, "Month Name", each Date.ToText([Date], [Format = "MMM", Culture = "en-US"]), type text
+				    ),
+				    AddMonthStart = Table.AddColumn(AddMonthName, "Month Start", each Date.StartOfMonth([Date]), type date),
+				    AddYearMonth = Table.AddColumn(
+				        AddMonthStart, "Year Month", each Date.ToText([Date], [Format = "MMM yyyy", Culture = "en-US"]), type text
+				    ),
+				    AddYearMonthKey = Table.AddColumn(AddYearMonth, "Year Month Key", each [Year] * 100 + [Month Number], Int64.Type)
+				in
+				    AddYearMonthKey
+
+	annotation PBI_ResultType = Table
