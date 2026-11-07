@@ -1,0 +1,97 @@
+{
+  "name": "HealthClaimsTheme",
+  "dataColors": [
+    "#1E3A66",
+    "#14A38B",
+    "#E8912D",
+    "#7B5EA7",
+    "#E0533F",
+    "#3D8BD9",
+    "#8DB580",
+    "#B07A57"
+  ],
+  "foreground": "#13233A",
+  "foregroundNeutralSecondary": "#6B7A90",
+  "foregroundNeutralTertiary": "#9AA6B8",
+  "background": "#FFFFFF",
+  "backgroundLight": "#F5F7FB",
+  "backgroundNeutral": "#E6EAF1",
+  "tableAccent": "#1E3A66",
+  "good": "#14A38B",
+  "neutral": "#E8912D",
+  "bad": "#E0533F",
+  "maximum": "#1E3A66",
+  "center": "#8FA9CC",
+  "minimum": "#E7EDF6",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#13233A"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 11,
+      "color": "#13233A"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 9,
+      "color": "#6B7A90"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 24,
+      "color": "#13233A"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#E6EAF1"
+              }
+            },
+            "radius": 14
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": true,
+            "preset": "Custom",
+            "color": {
+              "solid": {
+                "color": "#13233A"
+              }
+            },
+            "transparency": 92,
+            "shadowBlur": 14,
+            "shadowDistance": 3
+          }
+        ],
+        "visualHeader": [
+          {
+            "transparency": 100
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F3F5FA"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
