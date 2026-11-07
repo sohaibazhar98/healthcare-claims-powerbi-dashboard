@@ -15,8 +15,7 @@ and group-level renewal experience.
 
 ## How to open it
 
-1. Unzip the folder to **`C:\HealthClaimsDashboard`**. That is the default data path, so it
-   works without any changes.
+1. Click **Code → Download ZIP**, then extract it so the folder is **`C:\HealthClaimsDashboard`**. That is the default data path, so it works without any changes.
 2. Open **`HealthClaims.pbip`** in Power BI Desktop (a recent version).
    - If Desktop asks about preview features, enable **Power BI Project (.pbip) save option**,
      **Store semantic model using TMDL format**, and **Store reports using enhanced metadata
@@ -161,6 +160,3 @@ Data/                              ← CSV source files + generate_data.py
 Screenshots/                       ← page previews
 LINKEDIN_POST.md                   ← draft post for sharing the project
 ```
-
-> The images in `Screenshots/` are previews rendered from the same data and layout. After you
-> refresh in Power BI Desktop, replace them with real screenshots of the report.
