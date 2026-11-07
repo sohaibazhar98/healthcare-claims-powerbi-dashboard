@@ -11,6 +11,10 @@ and group-level renewal experience.
 
 ![Executive Overview](Screenshots/preview-1-executive-overview.png)
 
+![Claims & Utilization](Screenshots/preview-2-claims-utilization.png)
+
+![Group Performance](Screenshots/preview-3-group-performance.png)
+
 ---
 
 ## How to open it
